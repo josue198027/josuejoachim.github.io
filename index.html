@@ -1,1 +1,736 @@
-<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>Portfolio</title>\n    <script>\n        var content = {\n            fr: {\n                projectsTitle: "Projets",\n                techCollabTitle: "Collaboration & Gestion de projet",\n                // ... other French content\n            },\n            en: {\n                projectsTitle: "Recent Work",\n                techCollabTitle: "Collaboration & Project Management",\n                // ... other English content\n            }\n        };\n        function updateContent() {\n            document.getElementById('tech-collab-title').textContent = content.fr.techCollabTitle;\n            // ... other updates\n        }\n    </script>\n</head>\n<body>\n    <div class="tech-section">\n        <h3 id="tech-collab-title"></h3>\n        <div class="tech-tags">\n            <span class="tag">Jira</span>\n            <span class="tag">Notion</span>\n            <span class="tag">GitHub</span>\n            <span class="tag">Teams</span>\n            <span class="tag">Trello</span>\n        </div>\n    </div>\n    <!-- Other sections of the HTML -->\n    <script>\n        updateContent();\n    </script>\n</body>\n</html>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Josué Joachim - Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #1a1a2e;
+            --secondary-color: #16213e;
+            --accent-color: #0f4c75;
+            --highlight-color: #3282b8;
+            --gold-accent: #f39c12;
+            --text-color: #333;
+            --light-text: #ecf0f1;
+            --light-bg: #f8f9fa;
+            --white: #ffffff;
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.1);
+            --shadow-md: 0 4px 16px rgba(0,0,0,0.15);
+            --shadow-lg: 0 8px 24px rgba(0,0,0,0.2);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--light-bg);
+        }
+
+        /* Language Switcher */
+        .lang-switcher {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: var(--white);
+            padding: 8px;
+            border-radius: 30px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .lang-switcher button {
+            background: transparent;
+            border: none;
+            padding: 10px 20px;
+            margin: 0 2px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.95em;
+            color: var(--text-color);
+            transition: all 0.3s ease;
+        }
+
+        .lang-switcher button:hover {
+            background: var(--light-bg);
+        }
+
+        .lang-switcher button.active {
+            background: linear-gradient(135deg, var(--highlight-color), var(--accent-color));
+            color: var(--white);
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f4c75 100%);
+            color: var(--white);
+            padding: 100px 20px 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".1" fill="%23ffffff"></path></svg>') no-repeat bottom;
+            background-size: cover;
+            opacity: 0.1;
+        }
+
+        .profile-container {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 30px;
+        }
+
+        .profile-img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: 6px solid var(--white);
+            object-fit: cover;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            z-index: 1;
+            transition: transform 0.3s ease;
+        }
+
+        .profile-container::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--gold-accent), var(--highlight-color));
+            z-index: 0;
+            opacity: 0.3;
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.05); opacity: 0.5; }
+        }
+
+        header h1 {
+            font-size: 3em;
+            margin-bottom: 15px;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        header p {
+            font-size: 1.2em;
+            opacity: 0.95;
+            max-width: 850px;
+            margin: 0 auto;
+            line-height: 1.8;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: -40px auto 0;
+            padding: 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Sections */
+        section {
+            background: var(--white);
+            margin: 30px 0;
+            padding: 50px;
+            border-radius: 15px;
+            box-shadow: var(--shadow-md);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        section:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        section h2 {
+            color: var(--primary-color);
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 4px solid transparent;
+            border-image: linear-gradient(90deg, var(--highlight-color), var(--gold-accent)) 1;
+            font-size: 2.2em;
+            font-weight: 700;
+            position: relative;
+        }
+
+        section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--gold-accent);
+            border-radius: 2px;
+        }
+
+        /* Profile Cards */
+        .profile-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .card {
+            background: linear-gradient(135deg, var(--light-bg) 0%, #e8eef2 100%);
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--highlight-color), var(--gold-accent));
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--highlight-color);
+        }
+
+        .card h3 {
+            color: var(--accent-color);
+            margin-bottom: 10px;
+            font-size: 1.3em;
+            font-weight: 600;
+        }
+
+        /* Tech Stack */
+        .tech-section {
+            margin: 30px 0;
+        }
+
+        .tech-section h3 {
+            color: var(--accent-color);
+            margin: 20px 0 15px;
+            font-size: 1.4em;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .tech-section h3::before {
+            content: '▸';
+            color: var(--gold-accent);
+            font-size: 1.2em;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .tag {
+            background: linear-gradient(135deg, var(--highlight-color), var(--accent-color));
+            color: var(--white);
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 0.95em;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-sm);
+            cursor: default;
+        }
+
+        .tag:hover {
+            background: linear-gradient(135deg, var(--gold-accent), #e67e22);
+            transform: scale(1.05);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Projects */
+        .projects-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .projects-list li {
+            padding: 20px 25px;
+            margin: 15px 0;
+            background: linear-gradient(90deg, var(--light-bg) 0%, #ffffff 100%);
+            border-left: 5px solid var(--highlight-color);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-size: 1.05em;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .projects-list li::before {
+            content: '✓';
+            position: absolute;
+            left: -5px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 30px;
+            height: 30px;
+            background: var(--gold-accent);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .projects-list li:hover {
+            background: linear-gradient(90deg, #e8f4f8 0%, #ffffff 100%);
+            padding-left: 45px;
+            border-left-color: var(--gold-accent);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .projects-list li:hover::before {
+            opacity: 1;
+            left: 10px;
+        }
+
+        /* Interests */
+        .interests-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .interest-item {
+            background: linear-gradient(135deg, var(--light-bg) 0%, #e8eef2 100%);
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 1.05em;
+            color: var(--accent-color);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+        }
+
+        .interest-item::before {
+            content: '●';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: var(--gold-accent);
+            font-size: 1.5em;
+        }
+
+        .interest-item:hover {
+            background: linear-gradient(135deg, var(--highlight-color), var(--accent-color));
+            color: var(--white);
+            transform: scale(1.05);
+            box-shadow: var(--shadow-md);
+        }
+
+        .interest-item:hover::before {
+            color: var(--white);
+        }
+
+        /* Contact */
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .contact-links a {
+            color: var(--white);
+            background: linear-gradient(135deg, var(--highlight-color), var(--accent-color));
+            text-decoration: none;
+            font-size: 1.15em;
+            font-weight: 600;
+            padding: 15px 35px;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            display: inline-block;
+            box-shadow: var(--shadow-md);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-links a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .contact-links a:hover::before {
+            left: 100%;
+        }
+
+        .contact-links a:hover {
+            background: linear-gradient(135deg, var(--gold-accent), #e67e22);
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            margin-top: 50px;
+            font-size: 1.05em;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.2em;
+            }
+            
+            header p {
+                font-size: 1.05em;
+            }
+            
+            section {
+                padding: 30px 20px;
+            }
+            
+            section h2 {
+                font-size: 1.8em;
+            }
+            
+            .lang-switcher {
+                top: 10px;
+                right: 10px;
+            }
+
+            .profile-img {
+                width: 160px;
+                height: 160px;
+            }
+
+            .contact-links {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .contact-links a {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+
+        /* Hidden class for language switching */
+        .hidden {
+            display: none;
+        }
+
+        /* Scroll animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        section {
+            animation: fadeInUp 0.6s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- Language Switcher -->
+    <div class="lang-switcher">
+        <button onclick="switchLang('fr')" id="btn-fr" class="active">🇫🇷 FR</button>
+        <button onclick="switchLang('en')" id="btn-en">🇬🇧 EN</button>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="profile-container">
+            <img src="josue-joachim.jpg" alt="Josué Joachim" class="profile-img">
+        </div>
+        <h1>Josué Joachim</h1>
+        <p id="header-intro"></p>
+    </header>
+
+    <div class="container">
+        <!-- Profile Section -->
+        <section>
+            <h2 id="profile-title"></h2>
+            <div class="profile-cards">
+                <div class="card">
+                    <h3 id="profile-1"></h3>
+                </div>
+                <div class="card">
+                    <h3 id="profile-2"></h3>
+                </div>
+                <div class="card">
+                    <h3 id="profile-3"></h3>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tech Stack Section -->
+        <section>
+            <h2 id="tech-title"></h2>
+            
+            <div class="tech-section">
+                <h3 id="tech-lang-title"></h3>
+                <div class="tech-tags">
+                    <span class="tag">Python</span>
+                    <span class="tag">Java</span>
+                    <span class="tag">SQL</span>
+                    <span class="tag">R</span>
+                </div>
+            </div>
+
+            <div class="tech-section">
+                <h3 id="tech-data-title"></h3>
+                <div class="tech-tags">
+                    <span class="tag">Pandas</span>
+                    <span class="tag">NumPy</span>
+                    <span class="tag">Matplotlib</span>
+                    <span class="tag">Seaborn</span>
+                    <span class="tag">Plotly</span>
+                    <span class="tag">scikit-learn</span>
+                    <span class="tag">KNIME</span>
+                </div>
+            </div>
+
+            <div class="tech-section">
+                <h3 id="tech-db-title"></h3>
+                <div class="tech-tags">
+                    <span class="tag">MySQL</span>
+                    <span class="tag">MongoDB Atlas</span>
+                </div>
+            </div>
+
+            <div class="tech-section">
+                <h3 id="tech-web-title"></h3>
+                <div class="tech-tags">
+                    <span class="tag">HTML/CSS</span>
+                    <span class="tag">Flask</span>
+                    <span class="tag">Git & GitHub</span>
+                    <span class="tag">Netlify</span>
+                </div>
+            </div>
+
+            <div class="tech-section">
+                <h3 id="tech-collab-title"></h3>
+                <div class="tech-tags">
+                    <span class="tag">Jira</span>
+                    <span class="tag">Notion</span>
+                    <span class="tag">GitHub</span>
+                    <span class="tag">Teams</span>
+                    <span class="tag">Trello</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section>
+            <h2 id="projects-title"></h2>
+            <ul class="projects-list" id="projects-list"></ul>
+        </section>
+
+        <!-- Interests Section -->
+        <section>
+            <h2 id="interests-title"></h2>
+            <div class="interests-list" id="interests-list"></div>
+        </section>
+
+        <!-- Contact Section -->
+        <section>
+            <h2 id="contact-title"></h2>
+            <div class="contact-links">
+                <a href="https://github.com/josue198027" target="_blank">📱 GitHub: josue198027</a>
+                <a href="mailto:josuejoachim@aol.com">✉️ Email: josuejoachim@aol.com</a>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; <span id="year"></span> Josué Joachim. <span id="footer-text"></span></p>
+    </footer>
+
+    <script>
+        // Content in both languages
+        const content = {
+            fr: {
+                headerIntro: "Je m'intéresse à la Data Science, à l'IA et à la pédagogie numérique. Je conçois des solutions simples et efficaces (analyse de données, automatisation, applications web) avec une forte attention à la clarté et à l'impact dans les milieux éducatifs et organisationnels.",
+                profileTitle: "Profil",
+                profile1: "Scientiste des données",
+                profile2: "Enseignant en mathématiques",
+                profile3: "Ingénieur en électronique et télécommunication",
+                techTitle: "Technologies & outils",
+                techLangTitle: "Langages",
+                techDataTitle: "Data & IA",
+                techDbTitle: "Bases de données",
+                techWebTitle: "Web & outils",
+                techCollabTitle: "Collaboration & Gestion de projet",
+                projectsTitle: "Projets",
+                projects: [
+                    "Systèmes de gestion (Python & Java)",
+                    "Analyse de données statistiques",
+                    "Machine Learning (KNN, arbres de décision, Random Forest)",
+                    "Chatbot IA (LangChain & OpenAI)",
+                    "Bases de données relationnelles & NoSQL",
+                    "Sites web éducatifs et communautaires"
+                ],
+                interestsTitle: "Centres d'intérêt",
+                interests: [
+                    "Éducation & pédagogie numérique",
+                    "Data Science & IA",
+                    "Cybersécurité",
+                    "Automatisation",
+                    "Projets concrets orientés apprentissage"
+                ],
+                contactTitle: "Contact",
+                footerText: "Tous droits réservés."
+            },
+            en: {
+                headerIntro: "I'm interested in Data Science, AI, and digital education. I build simple and effective solutions (data analysis, automation, web applications) with a focus on clarity, usability, and real impact in educational and organizational contexts.",
+                profileTitle: "Background",
+                profile1: "Data Scientist",
+                profile2: "Mathematics & Technology Teacher",
+                profile3: "Electronics Engineer (focus data & AI)",
+                techTitle: "Tech Stack",
+                techLangTitle: "Languages",
+                techDataTitle: "Data & AI",
+                techDbTitle: "Databases",
+                techWebTitle: "Web & Tools",
+                techCollabTitle: "Collaboration & Project Management",
+                projectsTitle: "Recent Work",
+                projects: [
+                    "Management Systems (Python & Java)",
+                    "Statistical Data Analysis",
+                    "Machine Learning Models (KNN, Decision Trees, Random Forest)",
+                    "AI Chatbot (LangChain & OpenAI)",
+                    "Relational & NoSQL Databases",
+                    "Educational & Community Websites"
+                ],
+                interestsTitle: "Interests",
+                interests: [
+                    "Educational Technology & Pedagogy",
+                    "Data Science & AI",
+                    "Cybersecurity",
+                    "Automation",
+                    "Hands-on Learning Projects"
+                ],
+                contactTitle: "Contact",
+                footerText: "All rights reserved."
+            }
+        };
+
+        // Current language
+        let currentLang = 'fr';
+
+        // Switch language function
+        function switchLang(lang) {
+            currentLang = lang;
+            
+            // Update active button
+            document.getElementById('btn-fr').classList.toggle('active', lang === 'fr');
+            document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+            
+            // Update content
+            updateContent();
+        }
+
+        // Update content based on current language
+        function updateContent() {
+            const c = content[currentLang];
+            
+            // Update text content
+            document.getElementById('header-intro').textContent = c.headerIntro;
+            document.getElementById('profile-title').textContent = c.profileTitle;
+            document.getElementById('profile-1').textContent = c.profile1;
+            document.getElementById('profile-2').textContent = c.profile2;
+            document.getElementById('profile-3').textContent = c.profile3;
+            document.getElementById('tech-title').textContent = c.techTitle;
+            document.getElementById('tech-lang-title').textContent = c.techLangTitle;
+            document.getElementById('tech-data-title').textContent = c.techDataTitle;
+            document.getElementById('tech-db-title').textContent = c.techDbTitle;
+            document.getElementById('tech-web-title').textContent = c.techWebTitle;
+            document.getElementById('tech-collab-title').textContent = c.techCollabTitle;
+            document.getElementById('projects-title').textContent = c.projectsTitle;
+            document.getElementById('interests-title').textContent = c.interestsTitle;
+            document.getElementById('contact-title').textContent = c.contactTitle;
+            document.getElementById('footer-text').textContent = c.footerText;
+            
+            // Update projects list
+            const projectsList = document.getElementById('projects-list');
+            projectsList.innerHTML = '';
+            c.projects.forEach(project => {
+                const li = document.createElement('li');
+                li.textContent = project;
+                projectsList.appendChild(li);
+            });
+            
+            // Update interests list
+            const interestsList = document.getElementById('interests-list');
+            interestsList.innerHTML = '';
+            c.interests.forEach(interest => {
+                const div = document.createElement('div');
+                div.className = 'interest-item';
+                div.textContent = interest;
+                interestsList.appendChild(div);
+            });
+            
+            // Update HTML lang attribute
+            document.documentElement.lang = currentLang;
+        }
+
+        // Initialize
+        document.getElementById('year').textContent = new Date().getFullYear();
+        updateContent();
+    </script>
+</body>
+</html>
